@@ -1,0 +1,30 @@
+Lista de Exercicios - Aula 03
+Introdução a Orientação a Objetos
+Kaue Filipe Nascimento de Oliveira
+
+Questão 1
+Esconde os dados internos de uma classe, usando private, fazendo assim com que o acesso ou alteração seja apenas por meios controlados, o get e o set. Ele acaba facilitando nas mudanças, podendo alterar em apenas uma parte do programa que funciona para o resto.
+Questão 2
+Private - Visivel apenas para a própria classe em que esta.
+Default - Visivel apenas no mesmo pacote.
+Protected - Visivel na mesma classe, subclasse mesmo em pacotes diferentes.
+Public - Visivel em qualquer classe ou pacote.
+Questão 7
+linha1:
+O que faz? Sim, subtrai 10% do valorTotal do pedido
+Como faz? Sim, ele mostra a conta necessaria para isso
+linha2:
+O que faz? Sim, aplica um desconto de 10%
+Como faz? Não, chama um método interno do objeto, escondendo a fórmula
+
+Melhor encapsulado é a linha2, pois protege o valor, e acaba facilitando na manutenção do código.
+Questão 8
+nome - getter e setter
+matricula - getter
+nota - getter e setter
+matricula não possui a necessidade de possuir o setter.
+Questão 11
+É o conjunto de métodos públicos de uma classe, para que possa interagir com o objeto
+
+é o jeito de interagir com a classe.
+
