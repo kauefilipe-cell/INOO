@@ -61,6 +61,7 @@ public class Livro {
         autor.imprimir();
         System.out.println(valor);
         System.out.println(anoDeLancamento);
-        System.out.println();
+//        System.out.println();
     }
 }
+

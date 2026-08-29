@@ -8,18 +8,16 @@ public class CalculadoraDeEstoque {
         Autor b = new Autor("Sun Tzu","st@gmail.com");
         Livro arteDaGuerra = new Livro("A arte da Guerra", 9.90,a,-2000);
 
-       boolean descontoAplicado = livro20leguas.aplicaDesconto(0.4);
+        CarrinhodeCompras c = new CarrinhodeCompras(3);
 
-       if(descontoAplicado)
-           System.out.println("O desconto foi aplicado");
-       else
-           System.out.println("O desconto não foi aplicado");
+        System.out.println(c.adicionarLivro(livro20leguas));
+        System.out.println(c.adicionarLivro(arteDaGuerra));
+        System.out.println(c.adicionarLivro(livro20leguas));
+        System.out.println(c.removeLivro(arteDaGuerra));
+        System.out.println(c.adicionarLivro(livro20leguas));
 
-
-        System.out.println(livro20leguas.getValor());
-
-       livro20leguas.imprimir();
-       arteDaGuerra.imprimir();
+        c.listarLivros();
 
     }
 }
+
