@@ -16,6 +16,9 @@ public class CarrinhodeCompras {
                     this.carrinho[i] = l;
                     this.contador++;
                     return true;
+                }else{
+                    System.out.println("Carrinho cheio");
+                    return false;
                 }
             }
         }
