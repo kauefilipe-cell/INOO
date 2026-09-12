@@ -1,0 +1,107 @@
+Questão 1.
+// A
+int [] v = new int [5];
+for ( int i = 0; i <= v . length ; i ++) {
+    v [ i ] = i * 2;
+}
+Resposta: Erro de execução: o erro ocorre quando o i==5, e tenta acessar o indice inexistente
+
+// B
+Cartao [] cartoes = new Cartao [3];
+cartoes [1]. avanca () ;
+Resposta: Erro de execução: cartoes é um array de objetos, e suas posições começam com valor null, a tentativa de chamar método .avanca() causa um erro
+
+// C
+int [] numeros = new int [3];
+numeros . length = 5;
+Resposta: Erro de compilação: length não pode receber atribuição
+
+// D
+String [] nomes = new String [2];
+nomes [0] = 10;
+Resposta: Erro de compilação: tenta atribuir um int, sendo que o tipo de nomes é String
+
+Questão 2.
+4 - foram chamados 4 new Ticket();
+10 - o fila[2] aponta para a mesma memória do fila[1], que foi o primeiro criado
+30 20 - o fila[0] chamou o 2 new Ticket, que foi armazenado no int guardado, e depois chamou o 3 new Ticket
+true - apontam para a mesma memória
+false - possuem tickets diferentes
+2 - fila tem o tamanho de vetor 3, subtraindo 1 da 2
+
+Questão 3.
+// A
+public class Aluno {
+    private String nome ;
+    private int idade ;
+    public Aluno ( String nome ) { this . nome = nome ; }
+    public Aluno ( String nome , int idade ) {
+        this ( nome ) ;
+        this . idade = idade ;
+    }
+}
+Resposta: Compila
+
+// B
+public class Pedido {
+    public static final int LIMITE = 10;
+    public void altera () { LIMITE = 20; }
+}
+Resposta: Não compila: o final deixa ele constant, não podendo atribuir um novo valor ao LIMITE
+Remover public void altera () { LIMITE = 20; }, ou remover o final, caso ele tenha que ser alterado
+
+// C
+public class Conversor {
+    public int converte ( int valor ) { return valor * 2; }
+    public double converte ( int valor ) { return valor * 2.0; }
+}
+Resposta: Não compila: ambos possuem a mesma assinatura, mesmo nome e parâmetros
+Alterar o nome de uma, ou mudar o parâmetro
+
+// D
+public class Placar {
+    private static int partidas ;
+    private int pontos ;
+    public void registra ( int pontos ) {
+        this . pontos += pontos ;
+        partidas ++;
+    }
+}
+Resposta: Compila
+
+
+Questão 4.
+a)V - o arquivo .java deve possuir o mesmo nome da classe publica
+b)F - ele não altera na velocidade da execução
+c)F - private só pode ser acessado na mesma classe
+d)F - no static não existe instancia associada, então this não pode ser usado
+e)V - convenção padrão de nomenclatura de constantes em Java
+
+Questão 5.
+a)Não, setFase não possui uma verificação do int fase, aceitando qualquer numero. Atributos privados só protege o acesso direto, mas não garante que as regras, como seguir a ordem, sejam executadas corretamente
+
+c . setCodigo (1) ; - 1 é umas das fases, mas ele pula o backlog
+c . setFase (3) ; - 3 é a ultima fase, porem ele tbm pulou fases anteriores
+c . setFase (7) ; - não é nenhuma fase
+
+b)
+public boolean avanca() {
+    if (fase == 3) {
+        return false;
+    }
+    fase++;
+    return true;
+}
+
+c)Não deveria ter setter porque é um identificador do cartão, se pudesse ser alterado depois da criação, iria prejudicar a identidade do objeto
+
+public class Cartao {
+    private final int codigo;
+    private String titulo;
+    private int fase;
+
+    public Cartao(int codigo) {
+        this.codigo = codigo;
+    }
+}
+
