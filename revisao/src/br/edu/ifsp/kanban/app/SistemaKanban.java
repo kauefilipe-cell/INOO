@@ -1,109 +1,72 @@
-package br.edu.ifsp.kanban.modelo;
+package br.edu.ifsp.kanban.app;
 
-public class Cartao {
+import br.edu.ifsp.kanban.modelo.Cartao;
+import br.edu.ifsp.kanban.modelo.Quadro;
 
-    //1.1
-    public static final int BACKLOG = 0;
-    public static final int TODO = 1;
-    public static final int DOING = 2;
-    public static final int DONE = 3;
+// Avaliacao 1 - Versao B - classe FORNECIDA pelo professor.
+// Salve este arquivo em src/br/edu/ifsp/kanban/app/SistemaKanban.java
+// Nao altere o codigo. Voce so pode:
+//   - comentar as linhas que usam metodos que voce NAO implementou, para o projeto compilar;
+//   - descomentar o bloco da Etapa 3 (desafio), se implementar o metodo arquiva;
+//   - escrever a resposta do item 3.2 no comentario indicado no final.
+public class SistemaKanban {
+    public static void main(String[] args) {
+        Quadro quadro = new Quadro("Semestre 2026-2");
 
-    private static final String[] NOMES_DAS_FASES = {"BACKLOG", "TODO", "DOING", "DONE"};
+        Cartao ad1 = new Cartao("Fazer a AD1", 4, "Ana");
+        Cartao ad2 = new Cartao("Fazer a AD2", 6, "Bruno");
+        Cartao arrays = new Cartao("Estudar arrays", 3, "Ana");
+        Cartao slides = new Cartao("Preparar slides", 5, "Carla");
 
-    //1.2
-    private int codigo;
-    private String titulo;
-    private String responsavel;
-    private int estimativaEmHoras;
-    private int fase;
+        Cartao pacotes = new Cartao("Revisar pacotes");
+        System.out.println("reestima 2: " + pacotes.reestima(2));
+        System.out.println("reestima -1: " + pacotes.reestima(-1));
+        System.out.println("atribui null: " + pacotes.atribui(null));
 
-    private static int totalDeCartoes = 0;
+        System.out.println("adiciona AD1: " + quadro.adiciona(ad1));
+        System.out.println("adiciona AD2: " + quadro.adiciona(ad2));
+        System.out.println("adiciona arrays: " + quadro.adiciona(arrays));
+        System.out.println("adiciona slides: " + quadro.adiciona(slides));
 
-    //1.2
-    public Cartao(String titulo){
-        this.titulo = titulo;
-        this.fase = BACKLOG;
-        this.responsavel = null;
-        this.estimativaEmHoras = 1;
+        Cartao ad1Repetido = new Cartao("Fazer a AD1");
+        System.out.println("adiciona AD1 repetido: " + quadro.adiciona(ad1Repetido));
 
-        totalDeCartoes++;
-        this.codigo = totalDeCartoes;
+        System.out.println("adiciona pacotes: " + quadro.adiciona(pacotes));
+
+        Cartao listas = new Cartao("Corrigir listas", 2, "Bruno");
+        System.out.println("adiciona listas: " + quadro.adiciona(listas));
+
+        System.out.println("avanca AD1: " + quadro.avanca("Fazer a AD1"));
+        System.out.println("avanca AD1: " + quadro.avanca("Fazer a AD1"));
+        System.out.println("avanca AD2: " + quadro.avanca("Fazer a AD2"));
+        System.out.println("avanca AD2: " + quadro.avanca("Fazer a AD2"));
+        System.out.println("avanca arrays: " + quadro.avanca("Estudar arrays"));
+        System.out.println("avanca arrays: " + quadro.avanca("Estudar arrays"));
+        System.out.println("avanca AD1: " + quadro.avanca("Fazer a AD1"));
+        System.out.println("avanca pacotes: " + quadro.avanca("Revisar pacotes"));
+        System.out.println("avanca pacotes: " + quadro.avanca("Revisar pacotes"));
+        System.out.println("avanca arrays: " + quadro.avanca("Estudar arrays"));
+        System.out.println("avanca TCC: " + quadro.avanca("Escrever TCC"));
+        System.out.println("reestima AD1: " + ad1.reestima(10));
+
+        quadro.listaCartoes();
+
+        System.out.println("horas pendentes: " + quadro.calculaHorasPendentes());
+        System.out.println("em DOING: " + quadro.contaPorFase(Cartao.DOING));
+        System.out.println("em DONE: " + quadro.contaPorFase(Cartao.DONE));
+        System.out.println("sem responsavel: " + quadro.contaSemResponsavel());
+
+        Cartao maior = quadro.obtemMaiorEstimativa();
+        System.out.println("maior estimativa: " + maior.getTitulo());
+
+        System.out.println("cartoes criados: " + Cartao.getTotalDeCartoes());
+
+        // ===== Etapa 3 (desafio): descomente se implementar o metodo arquiva =====
+        // System.out.println("arquiva AD2: " + quadro.arquiva("Fazer a AD2"));
+        // System.out.println("arquiva AD1: " + quadro.arquiva("Fazer a AD1"));
+        // quadro.listaCartoes();
+
+        // Resposta do item 3.2:
+        //
     }
-
-    //1.3
-    public Cartao(String titulo, int estimativaEmHoras, String responsavel){
-        this(titulo);
-        reestima(estimativaEmHoras);
-        atribui(responsavel);
-    }
-
-    //1.4
-    public boolean reestima(int horas){
-        if(estaConcluido() || horas <= 0){
-            return false;
-        }
-        this.estimativaEmHoras = horas;
-        return true;
-    }
-
-    public boolean atribui(String responsavel){
-        if(estaConcluido() || responsavel == null){
-            return false;
-        }
-        this.responsavel = responsavel;
-        return true;
-    }
-
-    //1.5
-    public boolean avanca(){
-        if (fase == DONE){
-            return false;
-        }
-        if (fase == TODO && responsavel == null){
-            return false;
-        }
-        fase++;
-        return true;
-    }
-
-    public boolean estaConcluido(){
-        if (fase == DONE){
-            return true;
-        }
-        return false;
-    }
-
-    public String getNomeDaFase(){
-        return NOMES_DAS_FASES[fase];
-    }
-
-    public void mostrarDetalhes(){
-        System.out.println("#" + codigo + " " + titulo + " [" + getNomeDaFase() + "] | responsavel: " + responsavel + " | " + estimativaEmHoras + "h");
-    }
-
-    //1.5
-    public int getCodigo(){
-        return codigo;
-    }
-
-    public String getTitulo(){
-        return titulo;
-    }
-
-    public String getResponsavel(){
-        return responsavel;
-    }
-
-    public int getEstimativaEmHoras(){
-        return estimativaEmHoras;
-    }
-
-    public int getFase(){
-        return fase;
-    }
-
-    public static int getTotalDeCartoes(){
-        return totalDeCartoes;
-    }
-
 }
