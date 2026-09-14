@@ -102,5 +102,8 @@ public class Cartao {
         return fase;
     }
 
-    
+    public static int getTotalDeCartoes(){
+        return totalDeCartoes;
+    }
+
 }
